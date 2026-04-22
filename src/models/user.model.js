@@ -12,7 +12,7 @@ const userSchema=new mongoose.Schema({
       require:true,  
     },
     password:{
-        type:string,
+        type:String,
         require:true
     },
     role:{
@@ -22,5 +22,5 @@ const userSchema=new mongoose.Schema({
     }
     
 })
-const userModel=mingoose.model("user",userSchema)
+const userModel=mongoose.model("user",userSchema)
 module.exports=userModel;

@@ -1,8 +1,8 @@
-const express=require('expressk')
-
+const express=require('express')
+const authController=require('../controllers/auth.controllers')
 
 const router=express();
-
+router.post('/register', authController.registerUser)
 
 
 module.exports=router;

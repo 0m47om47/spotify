@@ -1,5 +1,6 @@
 const userModel=require("../models/user.model")
 const jwt=require("jsonwebtoken");
+const bcrypt =require("bcryptjs")
 
 
 async function registerUser(req,res) {
@@ -13,15 +14,17 @@ async function registerUser(req,res) {
     if (isUserAllReadyExists){
         return res.status(409).json({message: "user already exists"})
     }
+    const hash=await bcrypt.hash(password, 10)
+
     const user=await userModel.connect({
         userName,
         Email,
-        password,
+        password:hash,
         role
     })
     const token=jwt.sign({
         id:user._id,
-        role=user._role,
+        role:user._role
     },process.env.JWT_SECRET)
     res.cokkies=("token:",token)
     
@@ -35,3 +38,4 @@ async function registerUser(req,res) {
         }
     })
 }
+module.exports={registerUser}
